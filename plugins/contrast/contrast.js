@@ -26,7 +26,6 @@
       $("#a11y_contrast_styles").remove();
     }
     $.cookie('a11y_contrast', contrast);
-    console.log($.cookie('a11y_contrast'));
   };
   // invert functionality
   Drupal.a11y.invert = function(invert){
