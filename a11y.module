@@ -101,7 +101,7 @@ function a11y_menu() {
  */
 function a11y_admin_settings($form, &$form_state) {
   // opendyslexic default state
-  $form['opendyslexic'] = array(
+  $form['a11y_opendyslexic'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow open dyslexic font'),
     '#default_value' => variable_get('a11y_opendyslexic', 1),
@@ -109,7 +109,7 @@ function a11y_admin_settings($form, &$form_state) {
     '#required' => FALSE,
   );
   // contrast default state
-  $form['contrast'] = array(
+  $form['a11y_contrast'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow contrast'),
     '#default_value' => variable_get('a11y_contrast', 1),
@@ -117,7 +117,7 @@ function a11y_admin_settings($form, &$form_state) {
     '#required' => FALSE,
   );
   // textsize default state
-  $form['textsize'] = array(
+  $form['a11y_textsize'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow Text resize'),
     '#default_value' => variable_get('a11y_textsize', 1),
