@@ -1,0 +1,65 @@
+global:
+  version: 3.0.1
+  css:
+    base:
+      plugins/global/global.css: {}
+  js:
+    https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js: {type: external, minified: true}
+
+animation:
+  version: 1.x
+  css:
+    base:
+      plugins/animation/animation.css: {}
+  js:
+    plugins/animation/animation.js: {}
+  dependencies:
+    - core/drupal
+
+contrast:
+  version: 1.x
+  js:
+    plugins/contrast/contrast.js: {}
+  dependencies:
+    - core/drupal
+
+invert:
+  version: 1.x
+  css:
+    base:
+      plugins/invert/invert.css: {}
+  js:
+    plugins/invert/invert.js: {}
+  dependencies:
+    - core/drupal
+
+keyboard:
+  version: 1.x
+  css:
+    base:
+      plugins/keyboard/keyboard.css: {}
+  js:
+    plugins/keyboard/keyboard.js: {}
+  dependencies:
+    - core/drupal
+
+dyslexic:
+  version: 1.x
+  css:
+    base:
+      plugins/opendyslexic/opendyslexic.css: {}
+  js:
+    plugins/opendyslexic/opendyslexic.js: {}
+  dependencies:
+    - core/drupal
+
+textsize:
+  version: 1.x
+  css:
+    base:
+      plugins/textsize/textsize.css: {}
+  js:
+    plugins/textsize/textsize.js: {}
+  dependencies:
+    - core/drupal
+

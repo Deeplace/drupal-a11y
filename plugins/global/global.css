@@ -1,0 +1,33 @@
+.block-a11y {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border: 0 !important;
+}
+#a11y-container .a11y-accesibility {
+  display: inline-block;
+}
+.a11y-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0.25rem;
+  background-color: #ccc;
+  border: 1px solid #000;
+  border-radius: .25rem;
+  cursor: pointer;
+}
+.a11y-accesibility > .is-active {
+  background-color: #424242;
+  border-color: #5e5e5e;
+  color: #dadada;
+}
+.a11y-accesibility > .is-active label {
+  color: #fff;
+}
+.a11y-control label {
+  margin: 0 0 0 .25rem;
+  cursor: pointer;
+  font-size: 1rem;
+}

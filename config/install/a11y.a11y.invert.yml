@@ -1,0 +1,6 @@
+status: true
+dependencies: {  }
+id: invert
+label: Invert
+plugin_type: invert
+plugin_configuration: null

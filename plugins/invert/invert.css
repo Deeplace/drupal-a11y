@@ -1,0 +1,4 @@
+/* Not invert images */
+body.a11y-invert img {
+  filter:invert(100);
+}

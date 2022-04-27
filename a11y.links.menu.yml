@@ -1,0 +1,8 @@
+# A11y menu items definition
+entity.a11y.collection:
+  title: 'A11y'
+  route_name: entity.a11y.collection
+  description: 'Improve the accessibility of your website.'
+  parent: system.admin_config_system
+  weight: 99
+
