@@ -1,0 +1,13 @@
+status: true
+dependencies: {  }
+id: keyboard_navigation
+label: 'Keyboard navigation'
+plugin_type: keyboard
+plugin_configuration:
+  border:
+    type: solid
+    outline_color: '#ffffff'
+    color: '#000000'
+    size: '2'
+    box_size: '20'
+

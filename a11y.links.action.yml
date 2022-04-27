@@ -1,0 +1,6 @@
+entity.a11y.add_form:
+  route_name: entity.a11y.add_form
+  title: 'Add A11y'
+  appears_on:
+    - entity.a11y.collection
+

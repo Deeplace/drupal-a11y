@@ -1,0 +1,6 @@
+status: true
+dependencies: {  }
+id: contrast
+label: Contrast
+plugin_type: contrast
+plugin_configuration: null

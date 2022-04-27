@@ -8,6 +8,6 @@
   font-style: normal;
 }
 
-body,p,div,html,h1,h2,h3,h4,h5,h6,blockquote,table,tr,td,strong,em,a,span {
+body.a11y-opendyslexic * {
   font-family: "opendyslexic" !important;
 }

@@ -1,0 +1,4 @@
+services:
+  plugin.manager.a11y_plugin:
+    class: Drupal\a11y\Plugin\A11yPluginManager
+    parent: default_plugin_manager

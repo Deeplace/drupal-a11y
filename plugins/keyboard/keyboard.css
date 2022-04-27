@@ -1,0 +1,7 @@
+.keyboard-accessibility {
+  position: fixed;
+  z-index: 9999999999999999;
+}
+*:focus {
+  outline: 0 !important;
+}

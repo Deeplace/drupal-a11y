@@ -1,0 +1,5 @@
+dependencies: {  }
+id: textsize
+label: 'Text size'
+plugin_type: textsize
+plugin_configuration: null

@@ -1,0 +1,22 @@
+a11y.a11y.*:
+  type: config_entity
+  label: 'A11y config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    plugin_type:
+      type: string
+      label: 'Plugin type'
+    plugin_configuration:
+      type: a11y.plugin_target.[%parent.plugin_type]
+      label: 'Plugin configuration'
+      nullable: true
+
+a11y.plugin_target.*:
+  type: mapping
