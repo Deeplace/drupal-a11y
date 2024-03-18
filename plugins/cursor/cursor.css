@@ -1,0 +1,48 @@
+.large-cursor * {
+  cursor: url("../../images/cursors/cl128.png"), auto !important;
+}
+
+.large-cursor a, .large-cursor a *, .large-cursor label, .large-cursor .main-menu-hint-hide, .large-cursor input, .large-cursor button, .large-cursor legend {
+  cursor: url("../../images/cursors/pl128.png"), auto !important;
+}
+
+.medium-cursor * {
+  cursor: url("../../images/cursors/cl64.png"), auto !important;
+}
+
+.medium-cursor a, .medium-cursor a *, .medium-cursor label, .medium-cursor .main-menu-hint-hide, .medium-cursor input, .medium-cursor button, .medium-cursor legend {
+  cursor: url("../../images/cursors/pl64.png"), auto !important;
+}
+
+.small-cursor * {
+  cursor: url("../../images/cursors/cl32.png"), auto !important;
+}
+
+.small-cursor a, .small-cursor a *, .small-cursor label, .small-cursor .main-menu-hint-hide, .small-cursor input, .small-cursor button, .small-cursor legend {
+  cursor: url("../../images/cursors/pl32.png"), auto !important;
+}
+
+/* .a11y-invert */
+.a11y-invert.large-cursor * {
+  cursor: url("../../images/cursors/cd128.png"), auto !important;
+}
+
+.a11y-invert.large-cursor a, .a11y-invert.large-cursor a *, .a11y-invert.large-cursor label, .a11y-invert.large-cursor .main-menu-hint-hide, .a11y-invert.large-cursor input, .a11y-invert.large-cursor button, .a11y-invert.large-cursor legend {
+  cursor: url("../../images/cursors/pd128.png"), auto !important;
+}
+
+.a11y-invert.medium-cursor * {
+  cursor: url("../../images/cursors/cd64.png"), auto !important;
+}
+
+.a11y-invert.medium-cursor a, .a11y-invert.medium-cursor a *, .a11y-invert.medium-cursor label, .a11y-invert.medium-cursor .main-menu-hint-hide, .a11y-invert.medium-cursor input, .a11y-invert.medium-cursor button, .a11y-invert.medium-cursor legend {
+  cursor: url("../../images/cursors/pd64.png"), auto !important;
+}
+
+.a11y-invert.small-cursor * {
+  cursor: url("../../images/cursors/cd32.png"), auto !important;
+}
+
+.a11y-invert.small-cursor a, .a11y-invert.small-cursor a *, .a11y-invert.small-cursor label, .a11y-invert.small-cursor .main-menu-hint-hide, .a11y-invert.small-cursor input, .a11y-invert.small-cursor button, .a11y-invert.small-cursor legend {
+  cursor: url("../../images/cursors/pd32.png"), auto !important;
+}

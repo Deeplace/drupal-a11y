@@ -1,0 +1,5 @@
+.a11y-textsize #global-container {
+  -moz-transform-origin: top center 1px;
+  transform-origin: top center 1px;
+  line-height: normal;
+}

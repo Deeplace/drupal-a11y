@@ -1,19 +1,22 @@
-(function ($) {
-  $(document).ready(function(){
+/* globals Drupal */
+Drupal.behaviors.colorblind = {
+  "attach": function (context, settings) {
     // colorblind functionality
-    Drupal.a11y.simulateColorBlindness = function(colorblind){
-      $("body").removeClass('protanopia protanomaly deuteranopia deuteranomaly tritanopia tritanomaly achromatopsia achromatomaly');
+    settings.a11y.simulateColorBlindness = function (colorblind) {
+      const $globalContainer = jQuery("#global-container");
+      $globalContainer.removeClass("protanopia protanomaly deuteranopia deuteranomaly tritanopia tritanomaly achromatopsia achromatomaly");
       switch (colorblind) {
-        case '':
-        break;
+        case "":
+          break;
         default:
-          $("body").addClass(colorblind);
-        break;
+          $globalContainer.addClass(colorblind);
+          break;
       }
     };
+
     // on select list change simulate field loss when the state changes
-    $('#a11y_sim_colorblind_select').change(function(){
-      Drupal.a11y.simulateColorBlindness(this.value);
+    jQuery("#a11y-sim-colorblind-select").change(function () {
+      settings.a11y.simulateColorBlindness(this.value);
     });
-  });
-})(jQuery);
+  }
+};

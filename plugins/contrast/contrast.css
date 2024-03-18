@@ -1,4 +1,9 @@
-body {
-  -webkit-filter: contrast(2);
-  filter: contrast(2);
+.a11y-contrast.high-contrast #global-container {
+  -webkit-filter: contrast(160%);
+  filter: contrast(160%);
+}
+
+.a11y-contrast.low-contrast #global-container {
+  -webkit-filter: contrast(80%);
+  filter: contrast(80%);
 }

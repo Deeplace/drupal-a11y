@@ -1,0 +1,423 @@
+/* Common widget styles */
+.accessibility-widget {
+  --main-text-color: #56534f;
+  --outline: rgb(166 195 255 / 60%);
+  --active: rgb(166 195 255 / 90%);
+  --grey-bg: rgb(245 245 245);
+  --blue-bg: rgb(0, 107, 230);
+  --gradient-blue-bg: linear-gradient(to right, rgb(0, 107, 230), rgb(2, 96, 221), rgb(5, 85, 212), rgb(7, 73, 203), rgb(9, 62, 194));
+  --gradient-grey-bg: linear-gradient(to right, rgb(249 249 249), rgb(242 242 242), rgb(251 251 251));
+
+  padding: 0;
+  border: 0;
+  max-height: 0;
+  font-family: "ubunturegular";
+}
+.accessibility-widget div, .accessibility-widget a, .accessibility-widget span, .accessibility-widget input, .accessibility-widget label, .accessibility-widget button {
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 32px;
+}
+body:not(.toolbar) .block-a11y h2 {
+  display: none; /* prevent title displaying */
+}
+.toolbar .block-a11y h2 {
+  margin: 12px;
+}
+.block-a11y .accessibility-widget .fieldset-wrapper,
+.block-a11y .accessibility-widget legend {
+  position: fixed !important;
+  right: 0;
+}
+.block-a11y .accessibility-widget .fieldset-description {
+  color: #ffffff;
+  padding: 24px 100px 24px 24px;
+}
+.block-a11y .accessibility-widget .fieldset-wrapper {
+  z-index: 10000000;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  height: 100vh;
+  box-shadow: 7px 0px 20px 0px rgba(0 0 0 / 50%);
+  background: var(--gradient-blue-bg) var(--blue-bg);
+}
+.block-a11y .accessibility-widget legend {
+  --legend-wh: 64px;
+  right: 16px;
+  text-align: right;
+  z-index: 10000001;
+}
+.block-a11y .accessibility-widget legend,
+.block-a11y .accessibility-widget .fieldset-legend,
+.block-a11y .accessibility-widget legend a {
+  padding: 0 !important;
+  width: var(--legend-wh);
+  height: var(--legend-wh);
+}
+.block-a11y .accessibility-widget legend a:focus,
+.block-a11y .accessibility-widget legend:focus,
+.block-a11y .accessibility-widget .fieldset-legend:focus,
+.block-a11y .accessibility-widget .fieldset-legend:focus-visible,
+.block-a11y .accessibility-widget legend:focus-visible {
+  outline: 4px solid var(--outline);
+  border-radius: 32px;
+}
+.block-a11y .accessibility-widget legend a {
+  display: block;
+  font-size: 0;
+  text-decoration: none;
+  background: center / var(--legend-wh) no-repeat url("../images/close.png");
+}
+.block-a11y .accessibility-widget.collapsed legend {
+  top: auto;
+}
+.block-a11y .accessibility-widget.collapsed legend a {
+  background-image: url("../images/accessibility.png");
+}
+.a11y-textsize .block-a11y .accessibility-widget.collapsed legend a::after,
+.a11y-invert .block-a11y .accessibility-widget.collapsed legend a::after,
+.a11y-contrast .block-a11y .accessibility-widget.collapsed legend a::after,
+.a11y-animation .block-a11y .accessibility-widget.collapsed legend a::after,
+.a11y-dyslexic .block-a11y .accessibility-widget.collapsed legend a::after,
+.a11y-cursor .block-a11y .accessibility-widget.collapsed legend a::after {
+  --active-wh: 20px;
+  content: "";
+  width: var(--active-wh);
+  height: var(--active-wh);
+  display: block;
+  background: center / var(--active-wh) no-repeat url("../images/check.png");
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.block-a11y fieldset.accessibility-widget span.fieldset-legend {
+  background: transparent;
+}
+.accessibility-widget .inside-wrapper {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px;
+  border-radius: 12px 12px 0 0;
+  grid-template-columns: 1fr 1fr;
+  background: var(--gradient-grey-bg) var(--grey-bg);
+}
+
+.accessibility-widget .a11y-reset-all {
+  grid-column: span 2;
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 62px;
+  padding: 0 60px;
+  border-radius: 8px;
+  background: 24px center / 24px no-repeat url("../images/reset.png"), var(--gradient-blue-bg) var(--blue-bg);
+  transition: all 200ms ease-in;
+  outline: 4px solid transparent;
+}
+.accessibility-widget .a11y-reset-all:focus {
+  outline-color: var(--outline);
+}
+.accessibility-widget .a11y-reset-all:active {
+  outline-color: var(--active);
+  background-size: 200%;
+}
+@supports (zoom: 1) {
+  #a11y-widget.oversized .fieldset-wrapper {
+    zoom: 1.2;
+  }
+}
+@supports not (zoom: 1) {
+  #a11y-widget.oversized .fieldset-wrapper {
+    transform-origin: right top;
+    transform: scale(1.2);
+  }
+}
+.a11y-oversized-widget-controls {
+  grid-column: span 2;
+}
+.a11y-oversized-widget-controls input {
+  visibility: hidden;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.a11y-oversized-widget-controls label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--main-text-color);
+}
+.a11y-oversized-widget-controls .oversized-widget-toggle {
+  --toggle-w: 48px;
+  --toggle-h: 26px;
+  --toggle-br: 11px;
+  margin-left: 8px;
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  padding: 2px;
+  width: var(--toggle-w);
+  height: var(--toggle-h);
+  border-radius: var(--toggle-h);
+  background: var(--gradient-blue-bg);
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
+}
+.a11y-oversized-widget-controls .oversized-widget-toggle::after {
+  --toggle-after-wh: 22px;
+  --toggle-after-br: 11px;
+  left: 0;
+  content: "";
+  display: block;
+  position: relative;
+  width: var(--toggle-after-wh);
+  height: var(--toggle-after-wh);
+  background: #ffffff;
+  border-radius: var(--toggle-after-br);
+  -webkit-transition: left 200ms ease-in-out;
+  -moz-transition: left 200ms ease-in-out;
+  transition: left 200ms ease-in-out;
+}
+.oversized .a11y-oversized-widget-controls .oversized-widget-toggle::after {
+  left: var(--toggle-after-wh);
+}
+
+.accessibility-widget .widget-card {
+  --icon-wh: 64px;
+  --card-h: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  height: var(--card-h);
+  background-color: #ffffff;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.accessibility-widget .widget-card input {
+  visibility: hidden;
+  position: absolute;
+  width: 0;
+}
+.accessibility-widget .widget-card button {
+  background-color: #ffffff;
+}
+.accessibility-widget .widget-card .form-actions,
+.accessibility-widget .widget-card .form-radios {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+.accessibility-widget .widget-card button,
+.accessibility-widget .widget-card .form-type-radio {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+.accessibility-widget .widget-card,
+.accessibility-widget .widget-card button {
+  background-position: right 12px top 12px;
+  background-size: 24px;
+  background-repeat: no-repeat;
+}
+.accessibility-widget .widget-card .form-type-radio label {
+  margin-bottom: 0 !important;
+}
+.accessibility-widget .widget-card .form-type-radio label,
+.accessibility-widget .widget-card button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  height: 100%;
+  padding: 12px;
+  overflow: hidden;
+  border-radius: 8px;
+  color: #56534f;
+  border: 2px solid var(--grey-bg);
+  -webkit-transition: border-color 200ms ease-in;
+  -moz-transition: border-color 200ms ease-in;
+  transition: border-color 200ms ease-in;
+}
+.accessibility-widget .widget-card .form-type-radio label .option-name::after,
+.accessibility-widget .widget-card.textsize button .option-name::after {
+  content: "";
+  width: var(--icon-wh);
+  height: var(--icon-wh);
+  margin: 8px auto;
+  display: block;
+  background: center / var(--icon-wh) no-repeat;
+  -webkit-transition: background-image 200ms ease-in;
+  -moz-transition: background-image 200ms ease-in;
+  transition: background-image 200ms ease-in;
+}
+.accessibility-widget .widget-card.dyslexic label .option-name::after {
+  background-image: url("../images/book.png");
+}
+.accessibility-widget .widget-card.textsize button .option-name::after {
+  background-image: url("../images/text.png");
+}
+.accessibility-widget .widget-card.contrast label .option-name::after {
+  background-image: url("../images/contrast.png");
+}
+.accessibility-widget .widget-card.invert label .option-name::after {
+  background-image: url("../images/invert.png");
+}
+.accessibility-widget .widget-card.cursor label .option-name::after {
+  background-image: url("../images/cursors.png");
+}
+.accessibility-widget .widget-card.animation label .option-name::after {
+  background-image: url("../images/animate.png");
+}
+
+/* Active Widget functions */
+.a11y-dyslexic .accessibility-widget .widget-card.dyslexic,
+.a11y-contrast .accessibility-widget .widget-card.contrast,
+.a11y-invert .accessibility-widget .widget-card.invert,
+.a11y-cursor .accessibility-widget .widget-card.cursor,
+.a11y-textsize .accessibility-widget .widget-card.textsize button,
+.a11y-animation .accessibility-widget .widget-card.animation {
+  background-image: url("../images/check-mark.png");
+  outline: 4px solid var(--outline);
+}
+.a11y-textsize .accessibility-widget .widget-card.textsize {
+  outline: 4px solid var(--outline);
+}
+.a11y-textsize .accessibility-widget .widget-card.textsize button,
+.a11y-dyslexic .accessibility-widget .widget-card.dyslexic label,
+.a11y-contrast .accessibility-widget .widget-card.contrast label,
+.a11y-invert .accessibility-widget .widget-card.invert label,
+.a11y-cursor .accessibility-widget .widget-card.cursor label,
+.a11y-animation .accessibility-widget .widget-card.animation label {
+  border-color: var(--blue-bg);
+}
+
+body:not(.a11y-contrast) .form-type-radio.high,
+body:not(.a11y-invert) .form-type-radio.partial,
+body:not(.a11y-cursor) .form-type-radio.small,
+body:not(.a11y-animation) .form-type-radio.disable-animation,
+body:not(.a11y-dyslexic) .form-type-radio.opendyslexic {
+  visibility: visible;
+}
+.accessibility-widget .widget-card .form-type-radio {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.a11y-dyslexic.opendyslexic .accessibility-widget .widget-card.dyslexic .opendyslexic,
+.a11y-dyslexic.comic-sans .accessibility-widget .widget-card.dyslexic .comic-sans,
+.a11y-dyslexic.readable .accessibility-widget .widget-card.dyslexic .readable,
+.a11y-contrast.high-contrast .accessibility-widget .widget-card.contrast .high,
+.a11y-contrast.low-contrast .accessibility-widget .widget-card.contrast .low,
+.a11y-invert.partial-invert .accessibility-widget .widget-card.invert .partial,
+.a11y-invert.full-invert .accessibility-widget .widget-card.invert .full,
+.a11y-cursor.small-cursor .accessibility-widget .widget-card.cursor .small,
+.a11y-cursor.medium-cursor .accessibility-widget .widget-card.cursor .medium,
+.a11y-cursor.large-cursor .accessibility-widget .widget-card.cursor .large,
+.a11y-animation.disable-animation .accessibility-widget .widget-card.animation .disable-animation {
+  visibility: visible;
+}
+.a11y-dyslexic.opendyslexic .accessibility-widget .widget-card.dyslexic .opendyslexic+.form-type-radio,
+.a11y-dyslexic.comic-sans .accessibility-widget .widget-card.dyslexic .comic-sans+.form-type-radio,
+.a11y-dyslexic.readable .accessibility-widget .widget-card.dyslexic .readable+.form-type-radio,
+.a11y-contrast.high-contrast .accessibility-widget .widget-card.contrast .high+.form-type-radio,
+.a11y-contrast.low-contrast .accessibility-widget .widget-card.contrast .low+.form-type-radio,
+.a11y-invert.partial-invert .accessibility-widget .widget-card.invert .partial+.form-type-radio,
+.a11y-invert.full-invert .accessibility-widget .widget-card.invert .full+.form-type-radio,
+.a11y-cursor.small-cursor .accessibility-widget .widget-card.cursor .small+.form-type-radio,
+.a11y-cursor.medium-cursor .accessibility-widget .widget-card.cursor .medium+.form-type-radio,
+.a11y-cursor.large-cursor .accessibility-widget .widget-card.cursor .large+.form-type-radio,
+.a11y-animation.disable-animation .accessibility-widget .widget-card.animation .disable-animation+.form-type-radio {
+  visibility: visible;
+  opacity: 0;
+}
+
+.a11y-disability-simulator label,
+.a11y-disability-simulator .description,
+.a11y-disability-simulator .fieldset-description {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: left;
+  color: var(--main-text-color);
+  font-family: "ubunturegular";
+}
+@media (min-width: 1600px) {
+  .block-a11y .accessibility-widget.collapsed legend {
+    right: calc((100vw - 1600px) / 2);
+  }
+}
+@media (min-width: 769px) {
+  .block-a11y .accessibility-widget legend {
+    top: 32px;
+  }
+  .block-a11y .accessibility-widget.collapsed legend {
+    bottom: 52px;
+  }
+}
+@media (max-width: 768px) {
+  .accessibility-widget div, .accessibility-widget a, .accessibility-widget span, .accessibility-widget input, .accessibility-widget label, .accessibility-widget button {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .accessibility-widget .widget-card {
+    --icon-wh: 32px;
+    --card-h: 140px;
+  }
+  .block-a11y .accessibility-widget legend {
+    --legend-wh: 48px;
+    top: 24px;
+  }
+  .block-a11y .accessibility-widget.collapsed legend {
+    bottom: 172px;
+  }
+  .accessibility-widget .a11y-reset-all {
+    font-size: 18px;
+    line-height: 48px;
+  }
+}
+@media (hover: hover) {
+  .accessibility-widget .widget-card button:hover,
+  .accessibility-widget .widget-card .form-type-radio label:hover {
+    border-color: var(--blue-bg);
+  }
+  .a11y-oversized-widget-controls label:hover .oversized-widget-toggle {
+    outline: 4px solid var(--outline);
+  }
+  .accessibility-widget .a11y-reset-all:hover {
+    outline-color: var(--outline);
+  }
+  .accessibility-widget .widget-card.dyslexic:hover label .option-name::after {
+    background-image: url("../images/book-hover.png");
+  }
+  .accessibility-widget .widget-card.textsize button:hover .option-name::after {
+    background-image: url("../images/text-hover.png");
+  }
+  .accessibility-widget .widget-card.contrast:hover label .option-name::after {
+    background-image: url("../images/contrast-hover.png");
+  }
+  .accessibility-widget .widget-card.invert:hover label .option-name::after {
+    background-image: url("../images/invert-hover.png");
+  }
+  .accessibility-widget .widget-card.cursor:hover label .option-name::after {
+    background-image: url("../images/cursors-hover.png");
+  }
+  .accessibility-widget .widget-card.animation:hover label .option-name::after {
+    background-image: url("../images/animate-hover.png");
+  }
+}
