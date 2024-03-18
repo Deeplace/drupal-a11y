@@ -1,22 +1,25 @@
-(function ($) {
-  $(document).ready(function(){
-    $('#a11y_voicecommander_checkbox').click(function(){
-      Drupal.a11y.voicecommander(this.checked);
+/* globals Drupal */
+
+Drupal.behaviors.a11yVoiceCommander = {
+  "attach": function (context, settings) {
+    // voicecommander functionality
+    settings.a11y.voiceCommander = function(voicecommander) {
+      Drupal.behaviors.a11y.cookie("a11y_voicecommander", voicecommander);
+      // set the cookie then reload
+      location.reload();
+    };
+
+    jQuery("#a11y-voicecommander-checkbox", context).click(function() {
+      settings.a11y.voiceCommander(this.checked);
     });
     // test for cookie being set
-    if ($.cookie('a11y_voicecommander') == 'true') {
-      Drupal.settings.voiceCommander.continuous = true;
+    if (jQuery.cookie("a11y_voicecommander") === "true") {
+      settings.a11y.voiceCommander.continuous = true;
     }
     // default checkbox on if we should
-    if (typeof Drupal.settings.voiceCommander !== 'undefined' && Drupal.settings.voiceCommander.continuous == true) {
-      $('#a11y_voicecommander_checkbox').checked = true
-      $('#a11y_voicecommander_checkbox').attr('checked', 'checked');
+    if (typeof settings.a11y.voiceCommander !== "undefined" && settings.a11y.voiceCommander.continuous === true) {
+      jQuery("#a11y-voicecommander-checkbox").checked = true;
+      jQuery("#a11y-voicecommander-checkbox").attr("checked", "checked");
     }
-  });
-  // voicecommander functionality
-  Drupal.a11y.voicecommander = function(voicecommander){
-    $.cookie('a11y_voicecommander', voicecommander, { path: '/', domain: Drupal.settings.a11y.domain });
-    // set the cookie then reload
-    location.reload();
-  };
-})(jQuery);
+  }
+};

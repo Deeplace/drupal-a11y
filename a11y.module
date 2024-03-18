@@ -57,126 +57,262 @@ function a11y_a11y_block($render = TRUE) {
   // assemble the user alterations to the interface
   $alters = array(
     '#type' => 'fieldset',
-    '#title' => t('Interface'),
-    '#description' => t('Adjust the interface to make it easier to use for different conditions.'),
-    '#collapsed' => TRUE,
-    '#collapsible' => TRUE,
+    '#title' => t('Accessibility menu'),
+    '#id' => 'a11y-widget',
     '#weight' => -10,
     '#attributes' => array(
       'class' => array(
         'collapsible',
         'form-wrapper',
+        'collapsed',
+        'accessibility-widget',
       ),
-    ),
-    '#materialize' => array(
-      'type' => 'collapsible',
-      'icon' => 'brightness_medium',
-    ),
+    )
+  );
+  $alters['wrapper'] = array(
+    '#prefix' => '<div class="fieldset-description">' . t('Adjust the interface to make it easier to use for different conditions.') . '</div><div class="inside-wrapper">',
+    '#suffix' => '</div>',
   );
   // textsize default state
-  if (variable_get('a11y_textsize', 1)) {
-    $icon_path = base_path() . drupal_get_path('module', 'a11y') . '/plugins/icons/';
-    $alters['textsize'] = array(
+  if (variable_get('a11y_oversized_widget', 1)) {
+    $alters['wrapper']['oversized_widget'] = array(
       '#markup' => '
-      <div class="a11y-textsize-controls">
-        <div class="a11y-textsize-controls-label">' . t('Interface Size') . '</div>
-        <div class="a11y-textsize-controls-body row">
-          <div class="col s4">
-            <a data-voicecommand="smaller text" href="#textsizesmaller" onclick="Drupal.a11y.textsize(-1);" class="a11y-operation-icons a11y-decrease">
-              <span>Smaller</span>
-              <img alt="' . t('Decrease text size') . '" title="' . t('Decrease') . '" src="' . $icon_path . 'text-decrease.png" width="24" height="24" />
-            </a>
+        <div id="a11y-oversized-widget-controls" class="a11y-oversized-widget-controls">
+          <input type="checkbox" id="a11y-oversized-widget" name="oversize" value="oversize">
+          <label data-voicecommand="larger widget" class="option" for="a11y-oversized-widget">
+            ' . t("Oversize widget") . '
+            <span class="oversized-widget-toggle"></span>
+          </label>
+        </div>',
+      '#weight' => -10,
+    );
+  }
+  if (variable_get('a11y_textsize', 1)) {
+    $alters['wrapper']['textsize'] = array(
+      '#markup' => '
+        <div class="a11y-textsize-controls widget-card textsize">
+          <div class="form-actions">
+            <button data-voicecommand="larger text" type="button" name="increase" onclick="Drupal.settings.a11y.textSize(1);" class="a11y-increase">
+              <span class="option-name">
+                ' . t("Text size") . '
+              </span>
+                ' . t("Increase") . '
+            </button>
           </div>
-          <div class="col s4">
-            <a data-voicecommand="larger text" href="#textsizelarger" onclick="Drupal.a11y.textsize(1);" class="a11y-operation-icons a11y-increase">
-              <span>Larger</span>
-              <img alt="' . t('Increase text size') . '" title="' . t('Increase') . '" src="' . $icon_path . 'text-increase.png" width="24" height="24" />
-            </a>
-          </div>
-          <div class="col s4">
-            <a data-voicecommand="normal text" href="#textsizereset" onclick="Drupal.a11y.textsize(0);" class="a11y-operation-icons a11y-reset">
-              <span>Reset</span>
-              <img alt="' . t('Reset text size') . '" title="' . t('Reset') . '" src="' . $icon_path . 'text-reset.png" width="24" height="24" />
-            </a>
-          </div>
-        </div>
-      </div>',
+        </div>',
       '#weight' => -10,
     );
   }
   // support contrast settings
   if (variable_get('a11y_contrast', 1)) {
-    $alters['contrast'] = array(
-      '#type' => 'checkbox',
-      '#id' => 'a11y_contrast_checkbox',
-      '#title' => t('High contrast mode'),
-      '#default_value' => 0,
-      '#description' => t('This renders the document in high contrast mode.'),
+    $alters['wrapper']['contrast'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="form-type-radios widget-card contrast">
+          <div id="a11y-contrast-radios" class="form-radios">
+            <div class="form-type-radio form-item-contrast high">
+              <input type="radio" id="a11y-contrast-high" name="contrast" value="high-contrast" class="form-radio">
+              <label data-voicecommand="higher contast mode" class="option" for="a11y-contrast-high">
+                <span class="option-name">
+                  ' . t("Contrast") . '
+                </span>
+                ' . t("High") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-contrast low">
+              <input type="radio" id="a11y-contrast-low" name="contrast" value="low-contrast" class="form-radio">
+              <label data-voicecommand="lower contrast mode" class="option" for="a11y-contrast-low">
+                <span class="option-name">
+                  ' . t("Contrast") . '
+                </span>
+                ' . t("Low") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-contrast default">
+              <input type="radio" id="a11y-contrast-default" name="contrast" value="default-contrast" class="form-radio">
+              <label data-voicecommand="disable contrast mode" class="option" for="a11y-contrast-default">
+                <span class="option-name">
+                  ' . t("Contrast") . '
+                </span>
+                ' . t("Default") . '
+              </label>
+            </div>
+          </div>
+        </div>',
       '#weight' => -9,
-      '#attributes' => array(
-        'data-voicecommand' => 'high contrast mode (on)(off)',
-      ),
     );
-    $alters['invert'] = array(
-      '#type' => 'checkbox',
-      '#id' => 'a11y_invert_checkbox',
-      '#title' => t('Invert colors'),
-      '#default_value' => 0,
-      '#description' => t('This renders the document as white on black'),
+    $alters['wrapper']['invert'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="form-type-radios widget-card invert">
+          <div id="a11y-invert-radios" class="form-radios">
+            <div class="form-type-radio form-item-invert partial">
+              <input type="radio" id="a11y-invert-partial" name="invert" value="partial-invert" class="form-radio">
+              <label data-voicecommand="invert mode (only text and background)" class="option" for="a11y-invert-partial">
+                <span class="option-name">
+                  ' . t("Invert") . '
+                </span>
+                ' . t("Partial") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-invert full">
+              <input type="radio" id="a11y-invert-full" name="invert" value="full-invert" class="form-radio">
+              <label data-voicecommand="invert mode (text, background and images)" class="option" for="a11y-invert-full">
+                <span class="option-name">
+                  ' . t("Invert") . '
+                </span>
+                ' . t("Full") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-invert default">
+              <input type="radio" id="a11y-invert-default" name="invert" value="default-invert" class="form-radio">
+              <label data-voicecommand="disable invert mode" class="option" for="a11y-invert-default">
+                <span class="option-name">
+                  ' . t("Invert") . '
+                </span>
+                ' . t("Default") . '
+              </label>
+            </div>
+          </div>
+        </div>',
       '#weight' => -8,
-      '#attributes' => array(
-        'data-voicecommand' => 'invert colors (again)',
-      ),
     );
   }
   // support animation disabling
   if (variable_get('a11y_animation', 1)) {
     // animation default state
-    $alters['animation'] = array(
-      '#type' => 'checkbox',
-      '#id' => 'a11y_animation_checkbox',
-      '#title' => t('Disable interface animations'),
-      '#default_value' => 0,
+    $alters['wrapper']['animation'] = array(
       '#description' => t('This can help those with trouble processing rapid screen movements.'),
+      '#markup' => '<div class="form-type-radios widget-card animation">
+          <div id="a11y-animation-radios" class="form-radios">
+            <div class="form-type-radio form-item-animation disable-animation">
+              <input type="radio" id="a11y-animation-disable" name="animation" value="disable-animation" class="form-radio">
+              <label data-voicecommand="disable animation" class="option" for="a11y-animation-disable">
+                <span class="option-name">
+                  ' . t("Animation") . '
+                </span>
+                ' . t("Disable") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-animation enable-animation">
+              <input type="radio" id="a11y-animation-enable" name="animation" value="enable-animation" class="form-radio">
+              <label data-voicecommand="enable animation" class="option" for="a11y-animation-enable"></label>
+            </div>
+          </div>
+        </div>',
       '#weight' => -7,
-      '#attributes' => array(
-        'data-voicecommand' => 'toggle interface animations',
-      ),
     );
   }
   // open dyslexic font
-  if (variable_get('a11y_opendyslexic', 1)) {
-    $alters['opendyslexic'] = array(
-      '#type' => 'checkbox',
-      '#id' => 'a11y_opendyslexic_checkbox',
-      '#title' => t('Optimize fonts for dyslexia'),
-      '#default_value' => 0,
-      '#description' => t('This loads a font easier to read for people with dyslexia.'),
-      '#weight' => -6,
-      '#attributes' => array(
-        'data-voicecommand' => 'toggle dyslexic (font)',
-      ),
+  if (variable_get('a11y_dyslexic', 1)) {
+    $alters['wrapper']['dyslexic'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="form-type-radios widget-card dyslexic">
+          <div id="a11y-dyslexic-radios" class="form-radios">
+            <div class="form-type-radio form-item-dyslexic opendyslexic">
+              <input type="radio" id="a11y-dyslexic-opendyslexic" name="dyslexic" value="opendyslexic" class="form-radio">
+              <label data-voicecommand="change font (dyslexic)" class="option" for="a11y-dyslexic-opendyslexic">
+                <span class="option-name">
+                  ' . t("Font") . '
+                </span>
+                ' . t("Opendyslexic") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-dyslexic comic-sans">
+              <input type="radio" id="a11y-dyslexic-comic-sans" name="dyslexic" value="comic-sans" class="form-radio">
+              <label data-voicecommand="change font (comic sans ms or comic neue)" class="option" for="a11y-dyslexic-comic-sans">
+                <span class="option-name">
+                  ' . t("Font") . '
+                </span>
+                ' . t("Comic Sans/Neue") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-dyslexic readable">
+              <input type="radio" id="a11y-dyslexic-readable" name="dyslexic" value="readable" class="form-radio">
+              <label data-voicecommand="change font (readable)" class="option" for="a11y-dyslexic-readable">
+                <span class="option-name">
+                  ' . t("Font") . '
+                </span>
+                ' . t("Readable") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-dyslexic default">
+              <input type="radio" id="a11y-dyslexic-default" name="dyslexic" value="default" class="form-radio">
+              <label data-voicecommand="change font (return the font of the site)" class="option" for="a11y-dyslexic-default">
+                <span class="option-name">
+                  ' . t("Font") . '
+                </span>
+                ' . t("Default") . '
+              </label>
+            </div>
+          </div>
+        </div>',
+      '#weight' => -6
     );
   }
-  // support voicecommander disabling
-  if (user_access('use voice commander')) {
-    // voicecommander default state
-    $alters['voicecommander'] = array(
-      '#type' => 'checkbox',
-      '#id' => 'a11y_voicecommander_checkbox',
-      '#title' => t('Continuously listen for voice commands'),
-      '#default_value' => 0,
-      '#description' => t('This allows for more natural speech with working with the system.'),
-      '#weight' => -5,
-      '#attributes' => array(
-        'data-voicecommand' => 'toggle always listening',
-      ),
+  // cursor
+  if (variable_get('a11y_cursor', 1)) {
+    $alters['wrapper']['cursor'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="form-type-radios widget-card cursor">
+          <div id="a11y-cursor-radios" class="form-radios">
+            <div class="form-type-radio form-item-cursor small">
+              <input type="radio" id="a11y-cursor-small" name="cursor" value="small-cursor" class="form-radio">
+              <label data-voicecommand="increase cursor size" class="option" for="a11y-cursor-small">
+                <span class="option-name">
+                  ' . t("Cursor") . '
+                </span>
+                ' . t("Small") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-cursor medium">
+              <input type="radio" id="a11y-cursor-medium" name="cursor" value="medium-cursor" class="form-radio">
+              <label data-voicecommand="increase cursor size (again)" class="option" for="a11y-cursor-medium">
+                <span class="option-name">
+                  ' . t("Cursor") . '
+                </span>
+                ' . t("Medium") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-cursor large">
+              <input type="radio" id="a11y-cursor-large" name="cursor" value="large-cursor" class="form-radio">
+              <label data-voicecommand="increase cursor size (again)" class="option" for="a11y-cursor-large">
+                <span class="option-name">
+                  ' . t("Cursor") . '
+                </span>
+                ' . t("Large") . '
+              </label>
+            </div>
+            <div class="form-type-radio form-item-cursor default">
+              <input type="radio" id="a11y-cursor-default" name="cursor" value="default-cursor" class="form-radio">
+              <label data-voicecommand="change cursor size to initial" class="option" for="a11y-cursor-default">
+                <span class="option-name">
+                  ' . t("Cursor") . '
+                </span>
+                ' . t("Default") . '
+              </label>
+            </div>
+          </div>
+        </div>'
     );
-    // speechSynth seting
-    if (variable_get('a11y_speechsynth', 1)) {
-      $alters['a11y_speechsynth'] = array(
+  }
+  // Support voicecommander disabling
+  if (user_access('use voice commander')) {
+    if (variable_get('a11y_speechsynth', 0)) {
+      // voicecommander default state
+      $alters['wrapper']['voicecommander'] = array(
         '#type' => 'checkbox',
-        '#id' => 'a11y_speechsynth_checkbox',
+        '#id' => 'a11y-voicecommander-checkbox',
+        '#title' => t('Continuously listen for voice commands'),
+        '#default_value' => 0,
+        '#description' => t('This allows for more natural speech with working with the system.'),
+        '#weight' => -5,
+        '#attributes' => array(
+          'data-voicecommand' => 'toggle always listening',
+        ),
+      );
+      // speechSynth seting
+      $alters['wrapper']['a11y_speechsynth'] = array(
+        '#type' => 'checkbox',
+        '#id' => 'a11y-speechsynth-checkbox',
         '#title' => t('Read to me'),
         '#default_value' => 0,
         '#description' => t('This will speak the page\'s content to you.'),
@@ -187,6 +323,19 @@ function a11y_a11y_block($render = TRUE) {
       );
     }
   }
+  // reset all
+  $alters['wrapper']['reset_all'] = array(
+    '#type' => 'submit',
+    '#id' => 'a11y-reset-all',
+    '#value' => t('Reset all'),
+    '#attributes' => array(
+      'class' => array(
+        'a11y-reset-all'
+      ),
+      'data-voicecommand' => 'reset all accessibility settings',
+    ),
+  );
+
   if ($render) {
     // render any aleration array items we have
     $output .= drupal_render($alters);
@@ -208,6 +357,7 @@ function a11y_a11y_block($render = TRUE) {
           'collapsible',
           'form-wrapper',
           'collapsed',
+          'a11y-disability-simulator',
         ),
       ),
       '#materialize' => array(
@@ -219,7 +369,7 @@ function a11y_a11y_block($render = TRUE) {
     if (variable_get('a11y_sim_dyslexia', 1)) {
       $sim['dyslexia'] = array(
         '#type' => 'checkbox',
-        '#id' => 'a11y_sim_dyslexia_checkbox',
+        '#id' => 'a11y-sim-dyslexia-checkbox',
         '#title' => t('Dyslexia'),
         '#default_value' => 0,
         '#description' => t('This will simulate how a dyslexic might view your material.'),
@@ -231,7 +381,7 @@ function a11y_a11y_block($render = TRUE) {
     if (variable_get('a11y_sim_field_loss', 1)) {
       $sim['field_loss'] = array(
         '#type' => 'select',
-        '#id' => 'a11y_sim_field_loss_select',
+        '#id' => 'a11y-sim-field-loss-select',
         '#title' => t('Field loss'),
         '#default_value' => '',
         '#options' => array(
@@ -260,7 +410,7 @@ function a11y_a11y_block($render = TRUE) {
       );
       $sim['colorblind'] = array(
         '#type' => 'select',
-        '#id' => 'a11y_sim_colorblind_select',
+        '#id' => 'a11y-sim-colorblind-select',
         '#title' => t('Color blind'),
         '#default_value' => '',
         '#options' => $options,
@@ -270,7 +420,7 @@ function a11y_a11y_block($render = TRUE) {
       // add in the JS
       drupal_add_js(drupal_get_path('module', 'a11y') . '/simulations/colorblind/colorblind.js');
       // seems weird but we need to build the CSS dynamically
-      $filterpath = url(drupal_get_path('module', 'a11y') . '/simulations/colorblind/filters.svg', array('absolute' => TRUE));
+      $filterpath = file_create_url(drupal_get_path('module', 'a11y') . '/simulations/colorblind/filters.svg', array('absolute' => TRUE));
       $colorblindcss = '';
       array_shift($options);
       foreach ($options as $option => $name) {
@@ -356,18 +506,26 @@ function a11y_admin_settings($form, &$form_state) {
     '#required' => FALSE,
   );
   // opendyslexic default state
-  $form['config']['a11y_opendyslexic'] = array(
+  $form['config']['a11y_dyslexic'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow open dyslexic font'),
-    '#default_value' => variable_get('a11y_opendyslexic', 1),
+    '#default_value' => variable_get('a11y_dyslexic', 1),
     '#description' => t('This loads a css file that allows the user to forcibly override the font used by your site to be Open dyslexic, a font developed for those with dyslexia. You can find out more at http://opendyslexic.org/'),
+    '#required' => FALSE,
+  );
+  // cursor state
+  $form['config']['a11y_cursor'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow change cursor size'),
+    '#default_value' => variable_get('a11y_cursor', 1),
+    '#description' => t('Allow the user to adjust the cursor size'),
     '#required' => FALSE,
   );
   // a11y_speechsynth default state
   $form['config']['a11y_speechsynth'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow reading body of text to the user'),
-    '#default_value' => variable_get('a11y_speechsynth', 1),
+    '#default_value' => variable_get('a11y_speechsynth', 0),
     '#description' => t('This will use a browser based computer voice in order to read the text of the page to the user.'),
     '#required' => FALSE,
   );
@@ -394,6 +552,14 @@ function a11y_admin_settings($form, &$form_state) {
     '#description' => t('Allow the user to adjust the text size of your content.'),
     '#required' => FALSE,
   );
+  // allow oversize widget
+  $form['config']['oversized_widget'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow Oversizing widget'),
+    '#default_value' => variable_get('oversized_widget', 1),
+    '#description' => t('Allow the user to adjust the widget size.'),
+    '#required' => FALSE,
+  );
   // animation default state
   $form['config']['a11y_animation'] = array(
     '#type' => 'checkbox',
@@ -410,8 +576,9 @@ function a11y_admin_settings($form, &$form_state) {
  */
 function a11y_apply_a11y() {
   drupal_add_library('system', 'jquery.cookie');
+  drupal_add_css(drupal_get_path('module', 'a11y') . '/css/a11y.css', array('type' => 'file', 'scope' => 'footer', 'weight' => 1000));
 
-  drupal_add_js(drupal_get_path('module', 'a11y') . '/a11y.js', array('type' => 'file', 'scope' => 'footer', 'weight' => -1000));
+  drupal_add_js(drupal_get_path('module', 'a11y') . '/js/a11y.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 1000));
   // pass variables to js
   $js_variables = array(
     'a11y' => array(
@@ -423,9 +590,22 @@ function a11y_apply_a11y() {
   $plugin_path = drupal_get_path('module', 'a11y') . '/plugins/';
   $plugin_js_opts = array('type' => 'file', 'scope' => 'footer', 'weight' => 1000);
   $sim_path = drupal_get_path('module', 'a11y') . '/simulations/';
-  if (variable_get('a11y_opendyslexic', 1)) {
-    $js_variables['a11y']['opendyslexic'] = 1;
-    drupal_add_js($plugin_path . 'opendyslexic/opendyslexic.js', $plugin_js_opts);
+  if (variable_get('a11y_cursor', 1)) {
+    $js_variables['a11y']['cursor'] = 1;
+    drupal_add_js($plugin_path . 'cursor/cursor.js', $plugin_js_opts);
+  }
+  if (variable_get('a11y_dyslexic', 1)) {
+    $js_variables['a11y']['dyslexic'] = 1;
+    drupal_add_js($plugin_path . 'dyslexic/dyslexic.js', $plugin_js_opts);
+  }
+  if (user_access('use voice commander')) {
+    $js_variables['a11y']['voicecommander'] = 1;
+    drupal_add_js($plugin_path . 'voicecommander/voicecommander.js', $plugin_js_opts);
+    if (variable_get('a11y_speechsynth', 0)) {
+      $js_variables['a11y']['speechsynth'] = 1;
+      $js_variables['a11y']['speechSynthSelector'] = variable_get('a11y_speechsynthSelector', 'article');
+      drupal_add_js($plugin_path . 'speechsynth/speechsynth.js', $plugin_js_opts);
+    }
   }
   if (variable_get('a11y_contrast', 1)) {
     $js_variables['a11y']['contrast'] = 1;
@@ -435,18 +615,13 @@ function a11y_apply_a11y() {
     $js_variables['a11y']['animation'] = 1;
     drupal_add_js($plugin_path . 'animation/animation.js', $plugin_js_opts);
   }
-  if (user_access('use voice commander')) {
-    $js_variables['a11y']['voicecommander'] = 1;
-    drupal_add_js($plugin_path . 'voicecommander/voicecommander.js', $plugin_js_opts);
-    if (variable_get('a11y_speechsynth', 1)) {
-      $js_variables['a11y']['speechsynth'] = 1;
-      $js_variables['a11y']['speechSynthSelector'] = variable_get('a11y_speechsynthSelector', 'article');
-      drupal_add_js($plugin_path . 'speechsynth/speechsynth.js', $plugin_js_opts);
-    }
-  }
   if (variable_get('a11y_textsize', 1)) {
     $js_variables['a11y']['textsize'] = 1;
     drupal_add_js($plugin_path . 'textsize/textsize.js', $plugin_js_opts);
+  }
+  if (variable_get('a11y_oversized_widget', 1)) {
+    $js_variables['a11y']['oversized_widget'] = 1;
+    drupal_add_js($plugin_path . 'oversized-widget/oversized-widget.js', $plugin_js_opts);
   }
   if (variable_get('a11y_sim_dyslexia', 1)) {
     $js_variables['a11y']['sim']['dyslexia'] = 1;

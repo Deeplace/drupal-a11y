@@ -1,15 +1,43 @@
-body * {
-  color: #FFFFFF !important;
-  background-color: #000000 !important;
-  border-color: #FFFFFF !important;
+.a11y-invert {
+  --invert-white: #ffffff !important;
+  --invert-yellow: #ffe300 !important;
+  --invert-dark: #171717 !important;
+
+  background-color: var(--invert-dark);
 }
 
-a, a * , li, li a, li *, i, .black-text {
-  color: #FFFF00 !important;
+.a11y-invert .block-a11y h2,
+.a11y-invert .a11y-disability-simulator,
+.a11y-invert .a11y-disability-simulator .fieldset-title {
+  color: var(--invert-white) !important;
 }
 
-.white {
-  background-color: #000000 !important;
-  border-color: #FFFFFF !important;
-  box-shadow:;
+#global-container .content-container, #global-container .content-container *, #global-container .footer, #global-container .footer *, #global-container ul, #global-container .header-main-nav.open *, #global-container .main-menu-hint, #global-container .header-content, #global-container .region-header-right {
+  color: var(--invert-white) !important;
+  border-color: var(--invert-white) !important;
+  background-color: var(--invert-dark) !important;
+}
+#global-container text, #global-container tspan {
+  fill: var(--invert-white);
+  border-color: var(--invert-white);
+  background-color: var(--invert-dark);
+}
+#global-container a, #global-container a * , #global-container li, #global-container li a, #global-container li *, #global-container i, #global-container .content-container a, #global-container .content-container a *, #global-container .footer a, #global-container .footer a *, #global-container ul, #global-container .header-main-nav a, #global-container .header-main-nav.open a, #global-container .header-main-nav.open a * {
+  color: var(--invert-yellow) !important;
+}
+#global-container button:not(.a11y-increase), #global-container button i, #global-container input[type="button"], #global-container input[type="reset"], #global-container input[type="submit"]:not(.a11y-reset-all) {
+  background: var(--invert-yellow) !important;
+  color: var(--invert-dark) !important;
+}
+.full-invert #global-container img {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}
+
+/* Custom fixes */
+#global-container .expand,
+#global-container .hide-sub-nav {
+  -webkit-filter: brightness(4);
+  filter: brightness(4);
+  border-radius: 18px;
 }

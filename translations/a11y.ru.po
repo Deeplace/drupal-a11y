@@ -1,0 +1,326 @@
+# $Id$
+#
+# Russian translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  a11y.module: n/a
+#  a11y.info: n/a
+#  simulations/field-loss/field-loss.js: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2024-03-13 11:29+0200\n"
+"PO-Revision-Date: 2024-03-13 11:29+0200\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Russian <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: a11y.module:12
+msgid "View A11y simulations"
+msgstr "Просмотр симуляций предлагаемый A11y"
+
+#: a11y.module:13
+msgid "User can see the different simulators that the a11y module provides. These are intended to help people understand different accessibility concerns and should not be enabled for general site users unless the intention is teaching about the different conditions."
+msgstr "Пользователь может ознакомиться с различными симуляторами, которые предоставляет модуль a11y. Они предназначены для того, чтобы помочь людям понять различные проблемы доступности."
+
+#: a11y.module:23
+msgid "Accessibility suite"
+msgstr "Набор специальных возможностей"
+
+#: a11y.module:38
+msgid "Accessibility options"
+msgstr "Параметры специальных возможностей"
+
+#: a11y.module:60
+msgid "Accessibility menu"
+msgstr "Меню специальных возможностей"
+
+#: a11y.module:73
+msgid "Adjust the interface to make it easier to use for different conditions."
+msgstr "Настройте интерфейс таким образом, чтобы его было проще использовать в различных условиях."
+
+#: a11y.module:83
+msgid "Oversize widget"
+msgstr "Увеличить виджет"
+
+#: a11y.module:97
+msgid "Text size"
+msgstr "Размер текста"
+
+#: a11y.module:99
+msgid "Increase"
+msgstr "Увеличить"
+
+#: a11y.module:116;125;134
+msgid "Contrast"
+msgstr "Контраст"
+
+#: a11y.module:118
+msgid "High"
+msgstr "Повысить"
+
+#: a11y.module:127
+msgid "Low"
+msgstr "Понизить"
+
+#: a11y.module:136;171;243;290
+msgid "Default"
+msgstr "По умолчанию"
+
+#: a11y.module:151;160;169
+msgid "Invert"
+msgstr "Инверсия"
+
+#: a11y.module:153
+msgid "Partial"
+msgstr "Частичная"
+
+#: a11y.module:162
+msgid "Full"
+msgstr "Полная"
+
+#: a11y.module:183
+msgid "This can help those with trouble processing rapid screen movements."
+msgstr "Это может помочь тем, у кого возникают проблемы с обработкой быстрых перемещений экрана."
+
+#: a11y.module:190
+msgid "Animation"
+msgstr "Анимации"
+
+#: a11y.module:192
+msgid "Disable"
+msgstr "Остановить"
+
+#: a11y.module:214;223;232;241
+msgid "Font"
+msgstr "Шрифты"
+
+#: a11y.module:216
+msgid "Opendyslexic"
+msgstr "Opendyslexic"
+
+#: a11y.module:225
+msgid "Comic Sans/Neue"
+msgstr "Comic Sans/Neue"
+
+#: a11y.module:234
+msgid "Readable"
+msgstr "Читабельный"
+
+#: a11y.module:261;270;279;288
+msgid "Cursor"
+msgstr "Курсор"
+
+#: a11y.module:263
+msgid "Small"
+msgstr "Маленький"
+
+#: a11y.module:272
+msgid "Medium"
+msgstr "Средний"
+
+#: a11y.module:281
+msgid "Large"
+msgstr "Большой"
+
+#: a11y.module:301
+msgid "Reset all"
+msgstr "Сбросить всё"
+
+#: a11y.module:320;436
+msgid "Simulators"
+msgstr "Симуляторы"
+
+#: a11y.module:321
+msgid "Simulate different accessibility conditions. This is useful to see how your site would possibly be viewed by people with different conditions."
+msgstr "Имитируйте различные условия доступности. Это полезно для того, чтобы увидеть, как ваш сайт, возможно, будут видеть люди с ограниченными возможностями."
+
+#: a11y.module:342
+msgid "Dyslexia"
+msgstr "Дислексия"
+
+#: a11y.module:344
+msgid "This will simulate how a dyslexic might view your material."
+msgstr "Это позволит смоделировать, как дислексик может видеть сайт."
+
+#: a11y.module:354
+msgid "Field loss"
+msgstr "Потеря поля зрения"
+
+#: a11y.module:357
+msgid "No field loss"
+msgstr "Не выбрано"
+
+#: a11y.module:358
+msgid "Central loss"
+msgstr "Центральная"
+
+#: a11y.module:359
+msgid "Peripheral loss"
+msgstr "Периферическая"
+
+#: a11y.module:361
+msgid "This will simulate how someone with vision field loss might view your material."
+msgstr "Это смоделирует, как человек с потерей поля зрения может просматривать ваш материал."
+
+#: a11y.module:370
+msgid "No color blindness"
+msgstr "Не выбрано"
+
+#: a11y.module:371
+msgid "Achromatopsia"
+msgstr "Ахроматопсия"
+
+#: a11y.module:372
+msgid "Achromatomaly"
+msgstr "Ахроматомалия"
+
+#: a11y.module:373
+msgid "Deuteranopia"
+msgstr "Дейтеранопия"
+
+#: a11y.module:374
+msgid "Deuteranomaly"
+msgstr "Дейтераномалия"
+
+#: a11y.module:375
+msgid "Protanopia"
+msgstr "Протанопия"
+
+#: a11y.module:376
+msgid "Protanomaly"
+msgstr "Протаномалия"
+
+#: a11y.module:377
+msgid "Tritanopia"
+msgstr "Тританопия"
+
+#: a11y.module:378
+msgid "Tritanomaly"
+msgstr "Тританомалия"
+
+#: a11y.module:383
+msgid "Color blind"
+msgstr "Дальтонизм"
+
+#: a11y.module:386
+msgid "This will simulate different variations of color blindness."
+msgstr "Это позволит смоделировать различные вариации дальтонизма."
+
+#: a11y.module:437
+msgid "Allow for simulating different accessibility issues. This is useful to see how your site would possibly be viewed by people with different conditions. This is a mode intended for developers and site builders as the modes produce accessibility issues by design to help you empathize."
+msgstr "Позволяют моделировать различные проблемы с ограниченным доступом к контенту. Это полезно, чтобы увидеть, как ваш сайт может восприниматься людьми с различными ограниченными возможностями. Этот режим предназначен для разработчиков и создателей сайтов."
+
+#: a11y.module:443
+msgid "Allow dyslexia simulator"
+msgstr "Разрешить имитацию дислексии."
+
+#: a11y.module:445
+msgid "This produces an effect to content that attempts to simulate the affects of dyslexia."
+msgstr "Это моделирует дислексию."
+
+#: a11y.module:450
+msgid "Allow field loss simulator"
+msgstr "Разрешить имитацию потери поля зрения"
+
+#: a11y.module:452
+msgid "This produces an effect to content that attempts to simulate the affects of field loss."
+msgstr "Это моделирует последствия потери поля зрения."
+
+#: a11y.module:457
+msgid "Allow color blind simulator"
+msgstr "Разрешить моделирование дальтонизма"
+
+#: a11y.module:459
+msgid "Manipulates content to filter it through different types of color blindness."
+msgstr "Манипулирует контентом, чтобы отфильтровать его с помощью различных типов дальтонизма."
+
+#: a11y.module:464
+msgid "Button configuration"
+msgstr "Настройки виджета специальных возможностей"
+
+#: a11y.module:465
+msgid "Which accessibility options appear in the block."
+msgstr "Какие параметры специальных возможностей отображать в блоке."
+
+#: a11y.module:472
+msgid "Cookie domain"
+msgstr "Cookie домен"
+
+#: a11y.module:474
+msgid "Define the scope of the accessibility settings. This way you can keep UX patterns the same across subdomains for example."
+msgstr "Определите область действия настроек специальных возможностей. Таким образом, вы можете, например, сохранить шаблоны UX одинаковыми для всех поддоменов."
+
+#: a11y.module:480
+msgid "Allow open dyslexic font"
+msgstr "Разрешить использовать другие шрифты"
+
+#: a11y.module:482
+msgid "This loads a css file that allows the user to forcibly override the font used by your site to be Open dyslexic, a font developed for those with dyslexia. You can find out more at http://opendyslexic.org/"
+msgstr "При этом загружается css-файл, который позволяет пользователю принудительно изменить шрифт, используемый на вашем сайте, на Opendyslexic, шрифт, разработанный для людей с дислексией. Вы можете узнать больше на http://opendyslexic.org/ и другие более читабельные шрифты"
+
+#: a11y.module:488
+msgid "Allow change cursor size"
+msgstr "Разрешить изменять размер курсора"
+
+#: a11y.module:490
+msgid "Allow the user to adjust the cursor size"
+msgstr "Разрешить пользователю регулировать размер курсора"
+
+#: a11y.module:496
+msgid "Allow contrast"
+msgstr "Разрешить изменение контраста"
+
+#: a11y.module:498
+msgid "Allow the user to adjust the contrast of your site."
+msgstr "Позвольте пользователю регулировать контрастность вашего сайта."
+
+#: a11y.module:504
+msgid "Allow Text resize"
+msgstr "Разрешить изменение размера текста"
+
+#: a11y.module:506
+msgid "Allow the user to adjust the text size of your content."
+msgstr "Позвольте пользователю регулировать размер текста вашего контента."
+
+#: a11y.module:512
+msgid "Allow Oversizing widget"
+msgstr "Разрешить увеличение виджета"
+
+#: a11y.module:514
+msgid "Allow the user to adjust the widget size."
+msgstr "Разрешите пользователю регулировать размер виджета."
+
+#: a11y.module:520
+msgid "Allow disabling animation"
+msgstr "Разрешить отключение анимации"
+
+#: a11y.module:522
+msgid "Allow the user to disable css/js animations on your site."
+msgstr "Разрешите пользователю отключать css/js анимацию на вашем сайте."
+
+#: a11y.module:419
+msgid "Accessibility settings"
+msgstr "Настройки специальных возможностей"
+
+#: a11y.module:420
+msgid "Change which accessibility settings to apply."
+msgstr "Измените, какие параметры специальных возможностей следует применить."
+
+#: a11y.info:0
+msgid "A11y"
+msgstr "A11y"
+
+#: a11y.info:0
+msgid "Provides accessibility enhancements useful for any website"
+msgstr "Предоставляет специальные возможности для веб-сайта"
+
+#: simulations/field-loss/field-loss.js:0
+msgid "Disable simulation"
+msgstr "Отключить имитацию"
+
