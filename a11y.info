@@ -1,10 +1,5 @@
 name = A11y
 description = Provides accessibility enhancements useful for any website
 core = 7.x
-
-
-version = "7.x-1.2"
-core = "7.x"
+version = "7.x-1.4"
 project = "a11y"
-datestamp = "1480952889"
-

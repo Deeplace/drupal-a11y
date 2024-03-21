@@ -12,6 +12,10 @@ function a11y_permission() {
       'title' => t('View A11y simulations'),
       'description' => t('User can see the different simulators that the a11y module provides. These are intended to help people understand different accessibility concerns and should not be enabled for general site users unless the intention is teaching about the different conditions.'),
     ),
+    'use voice commander' =>  array(
+      'title' => t('Use voice commander'),
+      'description' => t('User can use the voice commander to interact with the site.'),
+    ),
   );
 }
 
@@ -45,15 +49,10 @@ function a11y_block_view($delta = '') {
 /**
  * Renders the default a11y block.
  */
-function a11y_a11y_block($render = TRUE) {
+function a11y_a11y_block() {
   // apply the css / js as selected
-  a11y_apply_a11y();
-  if ($render) {
-    $output = '';
-  }
-  else {
-    $output = array();
-  }
+  $output = a11y_apply_a11y();
+
   // assemble the user alterations to the interface
   $alters = array(
     '#type' => 'fieldset',
@@ -309,7 +308,7 @@ function a11y_a11y_block($render = TRUE) {
           'data-voicecommand' => 'toggle always listening',
         ),
       );
-      // speechSynth seting
+      // speechSynth setting
       $alters['wrapper']['a11y_speechsynth'] = array(
         '#type' => 'checkbox',
         '#id' => 'a11y-speechsynth-checkbox',
@@ -336,13 +335,8 @@ function a11y_a11y_block($render = TRUE) {
     ),
   );
 
-  if ($render) {
-    // render any aleration array items we have
-    $output .= drupal_render($alters);
-  }
-  else {
-    $output['alters'] = $alters;
-  }
+  $module_path = drupal_get_path('module', 'a11y');
+  $output['alters'] = $alters;
   // add in the simulations if they are allowed to see them
   if (user_access('view a11y simulations')) {
     $sim = array(
@@ -375,7 +369,7 @@ function a11y_a11y_block($render = TRUE) {
         '#description' => t('This will simulate how a dyslexic might view your material.'),
         '#weight' => -10,
       );
-      drupal_add_js(drupal_get_path('module', 'a11y') . '/simulations/dyslexia/dyslexia.js');
+      $output['#attached']['js'][] = $module_path . '/simulations/dyslexia/dyslexia.js';
     }
     // support for field-loss simulator
     if (variable_get('a11y_sim_field_loss', 1)) {
@@ -392,8 +386,8 @@ function a11y_a11y_block($render = TRUE) {
         '#description' => t('This will simulate how someone with vision field loss might view your material.'),
         '#weight' => -10,
       );
-      drupal_add_js(drupal_get_path('module', 'a11y') . '/simulations/field-loss/field-loss.js');
-      drupal_add_css(drupal_get_path('module', 'a11y') . '/simulations/field-loss/field-loss.css');
+      $output['#attached']['css'][] = $module_path . '/simulations/field-loss/field-loss.css';
+      $output['#attached']['js'][] = $module_path . '/simulations/field-loss/field-loss.js';
     }
     // support for colorblind simulator
     if (variable_get('a11y_sim_colorblind', 1)) {
@@ -418,9 +412,9 @@ function a11y_a11y_block($render = TRUE) {
         '#weight' => -11,
       );
       // add in the JS
-      drupal_add_js(drupal_get_path('module', 'a11y') . '/simulations/colorblind/colorblind.js');
+      $output['#attached']['js'][] = $module_path . '/simulations/colorblind/colorblind.js';
       // seems weird but we need to build the CSS dynamically
-      $filterpath = file_create_url(drupal_get_path('module', 'a11y') . '/simulations/colorblind/filters.svg', array('absolute' => TRUE));
+      $filterpath = file_create_url(drupal_get_path('module', 'a11y') . '/simulations/colorblind/filters.svg');
       $colorblindcss = '';
       array_shift($options);
       foreach ($options as $option => $name) {
@@ -429,15 +423,12 @@ function a11y_a11y_block($render = TRUE) {
           filter: url("' . $filterpath . '#' . $option .'"); }';
       }
       // kick it out inline
-      drupal_add_css($colorblindcss, array('type' => 'inline'));
+      $output['#attached']['css'][] = [
+        'data' => $colorblindcss,
+        'type' => 'inline',
+      ];
     }
-    if ($render) {
-      // render any aleration array items we have
-      $output .= drupal_render($sim);
-    }
-    else {
-      $output['sim'] = $sim;
-    }
+    $output['sim'] = $sim;
   }
   return $output;
 }
@@ -510,7 +501,7 @@ function a11y_admin_settings($form, &$form_state) {
     '#type' => 'checkbox',
     '#title' => t('Allow open dyslexic font'),
     '#default_value' => variable_get('a11y_dyslexic', 1),
-    '#description' => t('This loads a css file that allows the user to forcibly override the font used by your site to be Open dyslexic, a font developed for those with dyslexia. You can find out more at http://opendyslexic.org/'),
+    '#description' => t('This loads a css file that allows the user to forcibly override the font used by your site to be Open dyslexic, a font developed for those with dyslexia. You can find out more at https://opendyslexic.org/'),
     '#required' => FALSE,
   );
   // cursor state
@@ -574,54 +565,54 @@ function a11y_admin_settings($form, &$form_state) {
 /**
  * Callback to load the right js / css needed for supported plugins.
  */
-function a11y_apply_a11y() {
-  drupal_add_library('system', 'jquery.cookie');
-  drupal_add_css(drupal_get_path('module', 'a11y') . '/css/a11y.css', array('type' => 'file', 'scope' => 'footer', 'weight' => 1000));
-
-  drupal_add_js(drupal_get_path('module', 'a11y') . '/js/a11y.js', array('type' => 'file', 'scope' => 'footer', 'weight' => 1000));
+function a11y_apply_a11y() : array {
+  $attached = [];
+  $module_path = drupal_get_path('module', 'a11y');
+  $attached['library'][] = ['system', 'jquery.cookie'];
+  $attached['css'][] = $module_path . '/css/a11y.css';
+  $attached['js'][] = $module_path . '/js/a11y.js';
   // pass variables to js
   $js_variables = array(
     'a11y' => array(
-      'path' => base_path() . drupal_get_path('module', 'a11y') . '/',
+      'path' => base_path() . $module_path . '/',
       'domain' => variable_get('a11y_domain', ''),
       'factor' => 1,
     ),
   );
-  $plugin_path = drupal_get_path('module', 'a11y') . '/plugins/';
+  $plugin_path = $module_path . '/plugins/';
   $plugin_js_opts = array('type' => 'file', 'scope' => 'footer', 'weight' => 1000);
-  $sim_path = drupal_get_path('module', 'a11y') . '/simulations/';
   if (variable_get('a11y_cursor', 1)) {
     $js_variables['a11y']['cursor'] = 1;
-    drupal_add_js($plugin_path . 'cursor/cursor.js', $plugin_js_opts);
+    $attached['js'][$plugin_path . 'cursor/cursor.js'] = $plugin_js_opts;
   }
   if (variable_get('a11y_dyslexic', 1)) {
     $js_variables['a11y']['dyslexic'] = 1;
-    drupal_add_js($plugin_path . 'dyslexic/dyslexic.js', $plugin_js_opts);
+    $attached['js'][$plugin_path . 'dyslexic/dyslexic.js'] = $plugin_js_opts;
   }
   if (user_access('use voice commander')) {
     $js_variables['a11y']['voicecommander'] = 1;
-    drupal_add_js($plugin_path . 'voicecommander/voicecommander.js', $plugin_js_opts);
+    $attached['js'][$plugin_path . 'voicecommander/voicecommander.js'] = $plugin_js_opts;
     if (variable_get('a11y_speechsynth', 0)) {
       $js_variables['a11y']['speechsynth'] = 1;
       $js_variables['a11y']['speechSynthSelector'] = variable_get('a11y_speechsynthSelector', 'article');
-      drupal_add_js($plugin_path . 'speechsynth/speechsynth.js', $plugin_js_opts);
+      $attached['js'][$plugin_path . 'speechsynth/speechsynth.js'] = $plugin_js_opts;
     }
   }
   if (variable_get('a11y_contrast', 1)) {
     $js_variables['a11y']['contrast'] = 1;
-    drupal_add_js($plugin_path . 'contrast/contrast.js', $plugin_js_opts);
+    $attached['js'][$plugin_path . 'contrast/contrast.js'] = $plugin_js_opts;
   }
   if (variable_get('a11y_animation', 1)) {
     $js_variables['a11y']['animation'] = 1;
-    drupal_add_js($plugin_path . 'animation/animation.js', $plugin_js_opts);
+    $attached['js'][$plugin_path . 'animation/animation.js'] = $plugin_js_opts;
   }
   if (variable_get('a11y_textsize', 1)) {
     $js_variables['a11y']['textsize'] = 1;
-    drupal_add_js($plugin_path . 'textsize/textsize.js', $plugin_js_opts);
+    $attached['js'][$plugin_path . 'textsize/textsize.js'] = $plugin_js_opts;
   }
   if (variable_get('a11y_oversized_widget', 1)) {
     $js_variables['a11y']['oversized_widget'] = 1;
-    drupal_add_js($plugin_path . 'oversized-widget/oversized-widget.js', $plugin_js_opts);
+    $attached['js'][$plugin_path . 'oversized-widget/oversized-widget.js'] = $plugin_js_opts;
   }
   if (variable_get('a11y_sim_dyslexia', 1)) {
     $js_variables['a11y']['sim']['dyslexia'] = 1;
@@ -632,7 +623,14 @@ function a11y_apply_a11y() {
   if (variable_get('a11y_sim_colorblind', 1)) {
     $js_variables['a11y']['sim']['colorblind'] = 1;
   }
-  drupal_add_js($js_variables, array('type' => 'setting', 'scope' => 'footer', 'weight' => 1000));
+  $attached['js'][] = array(
+    'data' => $js_variables,
+    'type' => 'setting',
+    'scope' => 'footer',
+    'weight' => 1000,
+  );
+
+  return ['#attached' => $attached];
 }
 
 /**
@@ -640,5 +638,5 @@ function a11y_apply_a11y() {
  * Returns the accessibility block to foundation access.
  */
 function a11y_fa_a11y() {
-  return a11y_a11y_block(FALSE);
+  return a11y_a11y_block();
 }
